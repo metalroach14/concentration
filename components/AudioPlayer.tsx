@@ -6,7 +6,8 @@ export default function AudioPlayer() {
 
   useEffect(() => {
     // Play the audio automatically once the component mounts
-    audioRef.current.play().catch((error) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    audioRef.current.play().catch((error: any) => {
       console.log("Error playing audio:", error);
     });
   }, []);
