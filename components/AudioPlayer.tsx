@@ -1,13 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useEffect, useRef } from "react";
 
 export default function AudioPlayer() {
-  const audioRef = useRef(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     // Play the audio automatically once the component mounts
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    audioRef.current.play().catch((error: any) => {
+    audioRef.current?.play().catch((error: any) => {
       console.log("Error playing audio:", error);
     });
   }, []);
