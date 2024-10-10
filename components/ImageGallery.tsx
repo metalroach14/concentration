@@ -3,7 +3,12 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const ImageGallery = () => {
+interface ImageGalleryProps {
+  changeAfterSeconds: number;
+}
+
+const ImageGallery = ({ changeAfterSeconds = 6 }: ImageGalleryProps) => {
+  // Use the changeAfterSeconds prop here
   const images = [
     "/images/visual-stimulation-01.jpg",
     "/images/visual-stimulation-02.jpg",
@@ -18,9 +23,9 @@ const ImageGallery = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 6000); // Change image every 6 seconds
+    }, changeAfterSeconds * 1000); // Change image every 6 seconds
     return () => clearInterval(interval); // Clean up interval on unmount
-  }, [images.length]);
+  }, [images.length, changeAfterSeconds]);
 
   return (
     <div className=" w-full h-autobg-cover bg-center bg-no-repeat  mx-auto overflow-hidden flex justify-center items-center">
