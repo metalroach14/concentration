@@ -1,11 +1,13 @@
 "use client";
 import AudioPlayer from "@/components/AudioPlayer";
 import ImageGallery from "@/components/ImageGallery";
+import useKeepAwake from "@/hooks/useKeepAwake";
 import { useState } from "react";
 
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [changeAfterSeconds, setChangeAfterSeconds] = useState(6);
+  useKeepAwake(isPlaying);
   return (
     <>
       <div className="flex justify-center gap-4 items-center pt-4">
@@ -53,7 +55,7 @@ export default function Home() {
       </div>
 
       <main className="overflow-hidden min-h-40">
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+        <div className="flex gap-4 items-center justify-center flex-col sm:flex-row">
           {isPlaying && (
             <div>
               <ImageGallery changeAfterSeconds={changeAfterSeconds} />
