@@ -1,0 +1,46 @@
+/* Carousel.module.css */
+.carouselContainer {
+  perspective: 1500px; /* Adjust perspective for the 3D effect */
+  width: 400px; /* Smaller width */
+  height: 600px; /* Taller height to create the parallelepiped effect */
+  position: relative;
+  margin: auto;
+}
+
+.cube {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1s ease-in-out; /* Smooth transition */
+}
+
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  backface-visibility: hidden;
+}
+
+.face:nth-child(1) {
+  transform: rotateY(0deg) translateZ(200px); /* Front face */
+}
+
+.face:nth-child(2) {
+  transform: rotateY(90deg) translateZ(200px); /* Right face */
+}
+
+.face:nth-child(3) {
+  transform: rotateY(180deg) translateZ(200px); /* Back face */
+}
+
+.face:nth-child(4) {
+  transform: rotateY(-90deg) translateZ(200px); /* Left face */
+}
+
+.face.active {
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}

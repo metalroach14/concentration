@@ -1,16 +1,15 @@
 "use client";
 import AudioPlayer from "@/components/AudioPlayer";
 import ImageGallery from "@/components/ImageGallery";
-import useKeepAwake from "@/hooks/useKeepAwake";
 import { useState } from "react";
 
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [changeAfterSeconds, setChangeAfterSeconds] = useState(6);
-  useKeepAwake(isPlaying);
+  // useKeepAwake(isPlaying);
   return (
     <>
-      <div className="flex justify-center gap-4 items-center pt-4">
+      <div className="flex justify-center gap-4 items-center pt-4 mb-4">
         {isPlaying && (
           <div className="flex items-start gap-1 justify-start">
             <button

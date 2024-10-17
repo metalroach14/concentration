@@ -1,11 +1,5 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import Image from "next/image";
-
-interface ImageGalleryProps {
-  changeAfterSeconds: number;
-}
+import React, { useState, useEffect } from "react";
+import styles from "./Carousel.module.css"; // Import the CSS file for styles
 
 const images = [
   "/images/visual-stimulation-01.jpg",
@@ -16,38 +10,37 @@ const images = [
   "/images/visual-stimulation-06.jpg",
 ];
 
-const ImageGallery = ({ changeAfterSeconds = 6 }: ImageGalleryProps) => {
-  const [currentIndex, setCurrentIndex] = useState(images.length - 1);
-  const [opacity, setOpacity] = useState(1); // State to manage opacity
+const ImageGallery = ({ changeAfterSeconds = 6 }) => {
+  const [currentIndex, setCurrentIndex] = useState(0); // Track current image index
+  const [rotation, setRotation] = useState(0); // Track rotation
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // Start fade out
-      setOpacity(0); // Decrease opacity for fade out
-
-      setTimeout(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length); // Change image
-        // Delay a bit before gradually setting opacity back to 1 for the new image fade-in
-        setTimeout(() => {
-          setOpacity(1); // Slowly fade in the new image
-        }, 500); // Small delay to ensure the new image is rendered before fading in
-      }, 500); // Match this with fade-out duration
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setRotation((prevRotation) => prevRotation - 90); // Rotate by 90 degrees
     }, changeAfterSeconds * 1000);
 
     return () => clearInterval(interval); // Clean up interval on unmount
-  }, [images.length, changeAfterSeconds]);
+  }, [changeAfterSeconds]);
 
   return (
-    <div className="w-full h-auto bg-cover bg-center bg-no-repeat mx-auto overflow-hidden flex justify-center items-center">
-      <Image
-        key={images[currentIndex]}
-        src={images[currentIndex]}
-        alt="Gallery Image"
-        width={1200}
-        height={1700}
-        className={`object-cover transition-opacity duration-300 ease-in-out`}
-        style={{ opacity }} // Control opacity based on state
-      />
+    <div className={styles.carouselContainer}>
+      <div
+        className={styles.cube}
+        style={{ transform: `rotateY(${rotation}deg)` }} // Rotate based on state
+      >
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`${styles.face} ${
+              index === currentIndex ? styles.active : ""
+            }`}
+            style={{
+              backgroundImage: `url(${image})`,
+            }}
+          ></div>
+        ))}
+      </div>
     </div>
   );
 };
